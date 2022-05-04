@@ -102,6 +102,7 @@ class Renderer {
     var viewportSize: CGSize = CGSize()
     
     var textureCloud: [TextureFrame] = []
+    var textureCloud2: [TextureFrame2] = []
     var lastFramePos: SCNVector3!
     var tCloudQueue: DispatchQueue!
     
@@ -110,6 +111,15 @@ class Renderer {
         var dist: CGFloat     // dist from bbox
         var frame: ARFrame    // saved frame
         var pos: SCNVector3   // location in reference to bBox
+    }
+    
+    struct TextureFrame2{
+        var key: String       // slice /date/time/anything
+        var dist: CGFloat     // dist from bbox
+        var pos: SCNVector3   // location in reference to bBox
+        var worldMeshes: [WorldMesh] //
+        var cam: ARCamera
+        var texture: UIImage?
     }
 
     init(session: ARSession, view: MTKView) {
@@ -189,7 +199,7 @@ class Renderer {
     }
     
     
-    func saveTextureFrame() {
+    func saveTextureFrame(for index: Int = 0) {
         guard let frame = session.currentFrame else {
             print("can't get current frame")
             return
@@ -206,10 +216,42 @@ class Renderer {
         let date = Date()
         let dString = dateFormatter.string(from: date)
         
-        let textFrame = TextureFrame(key: dString, dist: dist, frame: frame, pos: cam2BoxLocal)
-        textureCloud.append(textFrame)
-        delegate.didSaveFrame(renderer: self)
+        //office
+//        let textFrame = TextureFrame(key: dString, dist: dist, frame: frame, pos: cam2BoxLocal)
+//        textureCloud.append(textFrame)
+//        delegate.didSaveFrame(renderer: self)
+        
+        let uiImage = getTextureImage(frame: frame)
+        
+        let textFrame = TextureFrame2(key: dString,
+                                      dist: dist,
+                                      pos: cam2BoxLocal,
+                                      worldMeshes: worldMeshes,
+                                      cam: frame.camera,
+                                      texture: uiImage)
+        textureCloud2.append(textFrame)
+        
+        //save cam texture
+        /*
+        let textureData = uiImage?.jpegData(compressionQuality: 0.3)
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+        let url = directory.appendingPathComponent("frame_\(index).png", isDirectory: false)
+        try? textureData?.write(to: url)
+         */
     }
+    
+    func getTextureImage(frame: ARFrame) -> UIImage? {
+
+        let pixelBuffer = frame.capturedImage
+        let image = CIImage(cvPixelBuffer: pixelBuffer)
+        
+        let context = CIContext(options:nil)
+        guard let cameraImage = context.createCGImage(image, from: image.extent) else {return nil}
+
+        return UIImage(cgImage: cameraImage)
+    }
+
     
     
     // MARK: - METAL PIPELINE
@@ -362,9 +404,11 @@ class Renderer {
         updateImagePlane(frame: currentFrame)
 
         if state == .scanning {
-            if textureCloud.count == 0 {
-                saveTextureFrame()
-            }
+            
+            //if textureCloud.count == 0 {
+            //    saveTextureFrame()
+            //}
+            
             updateWorldMeshAnchors(currentFrame)
         }
         updateFrameUniforms(frame: currentFrame)

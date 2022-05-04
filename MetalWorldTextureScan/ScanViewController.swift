@@ -57,7 +57,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
+        
         session = ARSession()
         session.delegate = self
         
@@ -67,11 +67,11 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         mtkView = MTKView(frame: view.frame)
         view.addSubview(mtkView)
-
+        
         mtkView.device = MTLCreateSystemDefaultDevice()
         mtkView.backgroundColor = .black
         mtkView.delegate = self
-
+        
         renderer = Renderer(session: session, view: mtkView)
         renderer.delegate = self
         
@@ -80,10 +80,10 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         defaults = UserDefaults.standard
     }
     
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         session.run(wConfig)
     }
     
@@ -279,6 +279,105 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         }
     }
     
+    func makeTexturedMesh2() {
+        
+        
+        for frame in renderer.textureCloud2{
+            
+            //let worldMeshes = renderer.worldMeshes
+            let worldMeshes = frame.worldMeshes
+            // each 'mesh' is a chunk of the whole scan
+            for mesh in worldMeshes {
+                
+                let aTrans = SCNMatrix4(mesh.transform)
+                
+                let vertices: ARGeometrySource = mesh.vertices
+                let normals: ARGeometrySource = mesh.normals
+                let faces: ARGeometryElement = mesh.submesh
+                
+                var texture: UIImage!
+                
+                // a face is just a list of three indices, each representing a vertex
+                for f in 0..<faces.count {
+                    
+                    // check to see if each vertex of the face is inside of our box
+                    var c = 0
+                    let face = face(at: f, faces: faces)
+                    for fv in face {
+                        // this is set by the renderer
+                        if mesh.inBox[fv] == 1 {
+                            c += 1
+                        }
+                    }
+                    
+                    guard c == 3 else {continue}
+                    
+                    // all verts of the face are in the box, so the triangle is visible
+                    var fVerts: [SCNVector3] = []
+                    var fNorms: [SCNVector3] = []
+                    var tCoords: [vector_float2] = []
+                    
+                    // convert each vertex and normal to world coordinates
+                    // get the texture coordinates
+                    for fv in face {
+                        
+                        let vert = vertex(at: UInt32(fv), vertices: vertices)
+                        let vTrans = SCNMatrix4MakeTranslation(vert[0], vert[1], vert[2])
+                        let wTrans = SCNMatrix4Mult(vTrans, aTrans)
+                        let wPos = SCNVector3(wTrans.m41, wTrans.m42, wTrans.m43)
+                        fVerts.append(wPos)
+                        
+                        let norm = normal(at: UInt32(fv), normals: normals)
+                        let nTrans = SCNMatrix4MakeTranslation(norm[0], norm[1], norm[2])
+                        let wNTrans = SCNMatrix4Mult(nTrans, aTrans)
+                        let wNPos = SCNVector3(wNTrans.m41, wTrans.m42, wNTrans.m43)
+                        fNorms.append(wNPos)
+                        
+                        
+                        // here's where you would find the frame that best fits
+                        // for simplicity, just use the last frame here
+                        //let tFrame = textureCloud.last!.frame
+                        let tFrame = frame
+                        //let tCoord = getTextureCoord(frame: tFrame, vert: vert, aTrans: mesh.transform)
+                        let tCoord = getTextureCoord(cam: tFrame.cam, vert: vert, aTrans: mesh.transform)
+                        tCoords.append(tCoord)
+                        //texture = textureImgs[textureCloud.count - 1]
+                        texture = frame.texture!
+                        
+                        // visualize the normals if you want
+                        if mesh.inBox[fv] == 1 {
+                            //let normVis = lineBetweenNodes(positionA: wPos, positionB: wNPos, inScene: arView.scene)
+                            //arView.scene.rootNode.addChildNode(normVis)
+                        }
+                    }
+                    allVerts.append(fVerts)
+                    allNorms.append(fNorms)
+                    allTCrds.append(tCoords)
+                    
+                    // make a single triangle mesh out each face
+                    let vertsSource = SCNGeometrySource(vertices: fVerts)
+                    let normsSource = SCNGeometrySource(normals: fNorms)
+                    let facesSource = SCNGeometryElement(indices: [UInt32(0), UInt32(1), UInt32(2)], primitiveType: .triangles)
+                    let textrSource = SCNGeometrySource(textureCoordinates: tCoords)
+                    let geom = SCNGeometry(sources: [vertsSource, normsSource, textrSource], elements: [facesSource])
+                    
+                    // texture it with a saved camera frame
+                    let mat = SCNMaterial()
+                    mat.diffuse.contents = texture
+                    mat.isDoubleSided = false
+                    geom.materials = [mat]
+                    let meshNode = SCNNode(geometry: geom)
+                    
+                    DispatchQueue.main.async {
+                        self.scanNode.addChildNode(meshNode)
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
     
     // takes all the mesh node geometries and recombines into one geometry
     func recombineGeoms() -> SCNNode {
@@ -336,10 +435,10 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         // project the point into the camera image to get u,v
         let pt = cam.projectPoint(world_vector3,
-            orientation: .portrait,
-            viewportSize: CGSize(
-                width: CGFloat(size.height),
-                height: CGFloat(size.width)))
+                                  orientation: .portrait,
+                                  viewportSize: CGSize(
+                                    width: CGFloat(size.height),
+                                    height: CGFloat(size.width)))
         let v = 1.0 - Float(pt.x) / Float(size.height)
         let u = Float(pt.y) / Float(size.width)
         
@@ -347,7 +446,29 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         return tCoord
     }
-    
+
+    func getTextureCoord(cam: ARCamera, vert: SIMD3<Float>, aTrans: simd_float4x4) -> vector_float2 {
+        
+        // convert vertex to world coordinates
+        let size = cam.imageResolution
+        let vertex4 = vector_float4(vert.x, vert.y, vert.z, 1)
+        let world_vertex4 = simd_mul(aTrans, vertex4)
+        let world_vector3 = simd_float3(x: world_vertex4.x, y: world_vertex4.y, z: world_vertex4.z)
+        
+        // project the point into the camera image to get u,v
+        let pt = cam.projectPoint(world_vector3,
+                                  orientation: .portrait,
+                                  viewportSize: CGSize(
+                                    width: CGFloat(size.height),
+                                    height: CGFloat(size.width)))
+        let v = 1.0 - Float(pt.x) / Float(size.height)
+        let u = Float(pt.y) / Float(size.width)
+        
+        let tCoord = vector_float2(u, v)
+        
+        return tCoord
+    }
+
     
     func getTextureCoords(frame: ARFrame, vertices: ARGeometrySource, aTrans: simd_float4x4) -> [vector_float2] {
         
@@ -431,7 +552,9 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         }
         
         //visualizeTextureCloud()
-        makeTexturedMesh()
+        //office
+        //makeTexturedMesh()
+        makeTexturedMesh2()
     }
     
     
@@ -471,15 +594,27 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         hapty = UIImpactFeedbackGenerator(style: .medium)
     }
-
+    
     // MARK: - MTKViewDelegate
-
+    
+    
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         print("drawable size: \(size)")
     }
-
+    
+    var frameIndex = 0
+    
     func draw(in view: MTKView) {
         renderer.update()
+        
+        //save textureFrame every 30 frame
+        if state == .scanning {
+            if frameIndex % 30 == 0 {
+                renderer.saveTextureFrame(for: frameIndex)
+            }
+            frameIndex += 1
+        }
+        
     }
     
     override var prefersHomeIndicatorAutoHidden: Bool {return true}
@@ -489,11 +624,11 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
 
 extension CGImage {
     
-  public static func create(pixelBuffer: CVPixelBuffer) -> CGImage? {
-    var cgImage: CGImage?
-    VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
-    return cgImage
-  }
+    public static func create(pixelBuffer: CVPixelBuffer) -> CGImage? {
+        var cgImage: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+        return cgImage
+    }
 }
 
 extension Dictionary where Value: Comparable {
