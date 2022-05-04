@@ -106,7 +106,7 @@ class Renderer {
     var tCloudQueue: DispatchQueue!
     
     struct TextureFrame {
-        var key: String       // slice
+        var key: String       // slice /date/time/anything
         var dist: CGFloat     // dist from bbox
         var frame: ARFrame    // saved frame
         var pos: SCNVector3   // location in reference to bBox
@@ -308,8 +308,9 @@ class Renderer {
         
         // place box at origin, in front of device
         // anything within this box can be scanned
-        let pos = SCNVector3(0, 0, 0.5)
-        placeBox(pos: pos)
+        //let pos = SCNVector3(0, 0, 0.5)
+        let pos = SCNVector3(0, 0, 0)
+        placeVirtualBox(pos: pos)
         
         
         let geometryOutlineVertexFunction = defaultLibrary.makeFunction(name: "anchorGeometryVertexTransform")!
@@ -335,7 +336,7 @@ class Renderer {
     }
     
     
-    func placeBox(pos: SCNVector3) {
+    func placeVirtualBox(pos: SCNVector3) {
         let min = SCNVector3(pos.x - 0.5, pos.y - 0.5, pos.z - 1.0)
         let max = SCNVector3(pos.x + 0.5, pos.y + 0.5, pos.z)
         bBox = BoundingBox((min: min, max: max))

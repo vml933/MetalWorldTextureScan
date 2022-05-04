@@ -126,7 +126,9 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
             tLabel.text = "ready to scan"
         case .scanning:
             // place box in front of you and start scanning
-            let lPos = SCNVector3Make(0, 0, -0.5)
+            //let lPos = SCNVector3Make(0, 0, -0.5)
+            let lPos = SCNVector3Make(0, 0, 0)
+            
             let cTrans = session.currentFrame!.camera.transform
             let cMatrix4 = SCNMatrix4(cTrans)
             
@@ -134,7 +136,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
             let wTrans = SCNMatrix4Mult(pMatrix4, cMatrix4)
             let wPos = SCNVector3(wTrans.m41, wTrans.m42, wTrans.m43)
             
-            renderer.placeBox(pos: wPos)
+            renderer.placeVirtualBox(pos: wPos)
             scanButton.setTitle("done", for: .normal)
             tLabel.text = "scanning"
         case .viewing:
@@ -147,6 +149,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         renderer.state = state
     }
     
+    //TODO: auto save texture every 5 frame
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // save a texture frame by tapping

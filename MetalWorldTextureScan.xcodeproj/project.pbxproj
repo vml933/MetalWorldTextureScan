@@ -71,7 +71,7 @@
 				83C2130E250EE8EC007411C2 /* Info.plist */,
 			);
 			name = MetalWorldTextureScan;
-			path = /Users/quentinreiser/Desktop/MetalWorldTextureScan/MetalWorldTextureScan;
+			path = /Users/mark/Documents/XCodeProject/MetalWorldTextureScan/MetalWorldTextureScan;
 			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */
@@ -300,14 +300,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z3FCBX74E9;
+				DEVELOPMENT_TEAM = YS7S34LT8T;
 				INFOPLIST_FILE = "$(SRCROOT)/MetalWorldTextureScan/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Quentin.MetalWorldTextureScan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mark.MetalWorldTextureScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -319,14 +319,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Z3FCBX74E9;
+				DEVELOPMENT_TEAM = YS7S34LT8T;
 				INFOPLIST_FILE = "$(SRCROOT)/MetalWorldTextureScan/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.Quentin.MetalWorldTextureScan;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mark.MetalWorldTextureScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
