@@ -27,7 +27,7 @@ struct InstanceUniforms {
     var modelMatrix: float4x4
 }
 
-struct WorldMesh {
+struct WorldMeshInfo {
     let transform: float4x4
     let vertices: ARGeometrySource
     let normals: ARGeometrySource
@@ -86,7 +86,7 @@ class Renderer {
     
     var vertexDescriptor: MTLVertexDescriptor!
 
-    var worldMeshes: [WorldMesh] = []
+    var worldMeshes: [WorldMeshInfo] = []
     var ground: SCNVector3!
     var bBox: BoundingBox!
     var bBoxOrigin: SCNVector3!
@@ -117,7 +117,7 @@ class Renderer {
         var key: String       // slice /date/time/anything
         var dist: CGFloat     // dist from bbox
         var pos: SCNVector3   // location in reference to bBox
-        var worldMeshes: [WorldMesh] //
+        var worldMeshes: [WorldMeshInfo] //
         var cam: ARCamera
         var texture: UIImage?
     }
@@ -165,6 +165,7 @@ class Renderer {
     
     func updateWorldMeshAnchors(_ frame: ARFrame) {
         let anchors = frame.anchors.filter { $0 is ARMeshAnchor } as! [ARMeshAnchor]
+        print("\(#function) anchors count:\(anchors.count)")
         
         
         worldMeshes = anchors.map { anchor in
@@ -189,7 +190,7 @@ class Renderer {
                     inBox.append(0)
                 }
             }
-            let worldMesh = WorldMesh(transform: anchor.transform,
+            let worldMesh = WorldMeshInfo(transform: anchor.transform,
                                       vertices: vertices,
                                       normals: normals,
                                       submesh: submesh,
@@ -200,6 +201,12 @@ class Renderer {
     
     
     func saveTextureFrame(for index: Int = 0) {
+        if worldMeshes.count == 0 {
+            return
+        }
+            
+        print("saveTextureFrame")
+        
         guard let frame = session.currentFrame else {
             print("can't get current frame")
             return
@@ -405,9 +412,9 @@ class Renderer {
 
         if state == .scanning {
             
-            //if textureCloud.count == 0 {
-            //    saveTextureFrame()
-            //}
+            if textureCloud2.count == 0 {
+                saveTextureFrame()
+            }
             
             updateWorldMeshAnchors(currentFrame)
         }

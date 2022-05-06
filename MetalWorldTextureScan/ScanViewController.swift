@@ -12,7 +12,7 @@ import ARKit
 import MetalKit
 import SceneKit.ModelIO
 import VideoToolbox
-
+import Euclid
 
 enum ScanState: Int, CaseIterable {
     case idle
@@ -183,110 +183,26 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         hapty.impactOccurred()
     }
     
-    
-    
-    func makeTexturedMesh() {
-        
-        let worldMeshes = renderer.worldMeshes
-        let textureCloud = renderer.textureCloud
-        
-        print("texture images: \(textureImgs.count)")
-        
-        // each 'mesh' is a chunk of the whole scan
-        for mesh in worldMeshes {
-            
-            let aTrans = SCNMatrix4(mesh.transform)
-            
-            let vertices: ARGeometrySource = mesh.vertices
-            let normals: ARGeometrySource = mesh.normals
-            let faces: ARGeometryElement = mesh.submesh
-            
-            var texture: UIImage!
-            
-            // a face is just a list of three indices, each representing a vertex
-            for f in 0..<faces.count {
-                
-                // check to see if each vertex of the face is inside of our box
-                var c = 0
-                let face = face(at: f, faces: faces)
-                for fv in face {
-                    // this is set by the renderer
-                    if mesh.inBox[fv] == 1 {
-                        c += 1
-                    }
-                }
-                
-                guard c == 3 else {continue}
-                
-                // all verts of the face are in the box, so the triangle is visible
-                var fVerts: [SCNVector3] = []
-                var fNorms: [SCNVector3] = []
-                var tCoords: [vector_float2] = []
-                
-                // convert each vertex and normal to world coordinates
-                // get the texture coordinates
-                for fv in face {
-                    
-                    let vert = vertex(at: UInt32(fv), vertices: vertices)
-                    let vTrans = SCNMatrix4MakeTranslation(vert[0], vert[1], vert[2])
-                    let wTrans = SCNMatrix4Mult(vTrans, aTrans)
-                    let wPos = SCNVector3(wTrans.m41, wTrans.m42, wTrans.m43)
-                    fVerts.append(wPos)
-                    
-                    let norm = normal(at: UInt32(fv), normals: normals)
-                    let nTrans = SCNMatrix4MakeTranslation(norm[0], norm[1], norm[2])
-                    let wNTrans = SCNMatrix4Mult(nTrans, aTrans)
-                    let wNPos = SCNVector3(wNTrans.m41, wTrans.m42, wNTrans.m43)
-                    fNorms.append(wNPos)
-                    
-                    
-                    // here's where you would find the frame that best fits
-                    // for simplicity, just use the last frame here
-                    let tFrame = textureCloud.last!.frame
-                    let tCoord = getTextureCoord(frame: tFrame, vert: vert, aTrans: mesh.transform)
-                    tCoords.append(tCoord)
-                    texture = textureImgs[textureCloud.count - 1]
-                    
-                    // visualize the normals if you want
-                    if mesh.inBox[fv] == 1 {
-                        //let normVis = lineBetweenNodes(positionA: wPos, positionB: wNPos, inScene: arView.scene)
-                        //arView.scene.rootNode.addChildNode(normVis)
-                    }
-                }
-                allVerts.append(fVerts)
-                allNorms.append(fNorms)
-                allTCrds.append(tCoords)
-                
-                // make a single triangle mesh out each face
-                let vertsSource = SCNGeometrySource(vertices: fVerts)
-                let normsSource = SCNGeometrySource(normals: fNorms)
-                let facesSource = SCNGeometryElement(indices: [UInt32(0), UInt32(1), UInt32(2)], primitiveType: .triangles)
-                let textrSource = SCNGeometrySource(textureCoordinates: tCoords)
-                let geom = SCNGeometry(sources: [vertsSource, normsSource, textrSource], elements: [facesSource])
-                
-                // texture it with a saved camera frame
-                let mat = SCNMaterial()
-                mat.diffuse.contents = texture
-                mat.isDoubleSided = false
-                geom.materials = [mat]
-                
-                let meshNode = SCNNode(geometry: geom)
-                
-                DispatchQueue.main.async {
-                    self.scanNode.addChildNode(meshNode)
-                }
-            }
-        }
-    }
-    
     func makeTexturedMesh2() {
-        print("hihi count:\(renderer.textureCloud2.count)")
+        print("hihi textureFrame count:\(renderer.textureCloud2.count)")
         
-        //let frame = renderer.textureCloud2.first!
-        for frame in renderer.textureCloud2{
+        let sphere = SCNSphere(radius: 0.1)
+        sphere.firstMaterial?.diffuse.contents = UIColor.blue
+        let sphereNode = SCNNode(geometry: sphere)
+        sphereNode.position = SCNVector3(0, 0, -0.5)
+        //self.scanNode.addChildNode(sphereNode)
+        let sphereMesh = Mesh(sphereNode.geometry!)!.translated(by: Vector(0, 0, -0.5))
+//        let sphereMesh = Mesh(sphereNode.geometry!)!
+
+                
+        let frame = renderer.textureCloud2.first!
+        //for frame in renderer.textureCloud2{
+            
+            var totalMesh = Mesh.empty
             
             //let worldMeshes = renderer.worldMeshes
             let worldMeshes = frame.worldMeshes
+            print("hihi worldMeshes.count:\(worldMeshes.count)")
             // each 'mesh' is a chunk of the whole scan
             for mesh in worldMeshes {
                 
@@ -363,26 +279,39 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                     let geom = SCNGeometry(sources: [vertsSource, normsSource, textrSource], elements: [facesSource])
                     
                     // texture it with a saved camera frame
-                    //if let texture = texture {
-                        
-                        let mat = SCNMaterial()
-                        mat.diffuse.contents = texture
-                        //develop
-                        mat.diffuse.wrapT = .clampToBorder
-                        mat.diffuse.wrapS = .clampToBorder
-                        //mat.transparencyMode = .dualLayer
-                        
-                        mat.isDoubleSided = false
-                        geom.materials = [mat]
-                    //}
-                    let meshNode = SCNNode(geometry: geom)
+                    let mat = SCNMaterial()
+                    mat.diffuse.contents = texture
+                    //develop
+                    //mat.diffuse.wrapT = .clampToBorder
+                    //mat.diffuse.wrapS = .clampToBorder
+                    //mat.transparencyMode = .dualLayer
                     
+                    mat.isDoubleSided = false
+                    geom.materials = [mat]
+                    
+//                    if totalMesh == Mesh.empty {
+//                        totalMesh = Mesh(geom)!
+//                    }else{
+//                        totalMesh = totalMesh.union(Mesh(geom)!)
+//                    }
+                    
+                    let fixMesh = Mesh(geom)?.subtract(sphereMesh)
+                    let fixGeom = SCNGeometry(fixMesh!)
+                    
+                    //let meshNode = SCNNode(geometry: geom)
+                    let meshNode = SCNNode(geometry: fixGeom)
                     DispatchQueue.main.async {
                         self.scanNode.addChildNode(meshNode)
                     }
                 }
             }
-        }
+            
+//            DispatchQueue.main.async {
+//                let geometry = SCNGeometry(totalMesh)
+//                let meshNode = SCNNode(geometry: geometry)
+//                self.scanNode.addChildNode(meshNode)
+//            }
+        //}
         
     }
     
@@ -544,13 +473,13 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         arView = ARSCNView(frame: view.frame)
         arView.delegate = self
+        arView.allowsCameraControl = true
         arView.autoenablesDefaultLighting = false
         arBounds = arView.bounds
         
         sConfig = ARWorldTrackingConfiguration()
         //sConfig.sceneReconstruction = .mesh
         //sConfig.planeDetection = [.horizontal, .vertical]
-//        sConfig.planeDetection = [.horizontal]
         //arView.session.run(sConfig, options: [])
         view.addSubview(arView)
         
@@ -570,69 +499,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         //office
         //makeTexturedMesh()
         makeTexturedMesh2()
-        
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(moveNode(_:)))
-//         self.arView.addGestureRecognizer(panGesture)
-        
-        let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateNode(_:)))
-        self.arView.addGestureRecognizer(rotateGesture)
     }
-    
-    var panStartZ: CGFloat? = 0
-    var lastPanLocation: SCNVector3? = SCNVector3.init(0, 0, 0)
-    
-    /// Rotates An Object On It's YAxis
-    ///
-    /// - Parameter gesture: UIPanGestureRecognizer
-    @objc func moveNode(_ panGesture: UIPanGestureRecognizer) {
-        
-        //guard let view = arView as? ARSCNView else { return }
-        
-          let location = panGesture.location(in: self.arView)
-          switch panGesture.state {
-          case .began:
-            // existing logic from previous approach. Keep this.
-            guard let hitNodeResult = arView.hitTest(location, options: nil).first else { return }
-            panStartZ = CGFloat(arView.projectPoint(lastPanLocation!).z)
-            // lastPanLocation is new
-            lastPanLocation = hitNodeResult.worldCoordinates
-          case .changed:
-            // This entire case has been replaced
-            let worldTouchPosition = arView.unprojectPoint(SCNVector3(location.x, location.y, panStartZ!))
-            let movementVector = SCNVector3(
-              worldTouchPosition.x - lastPanLocation!.x,
-              worldTouchPosition.y - lastPanLocation!.y,
-              worldTouchPosition.z - lastPanLocation!.z)
-              scanNode.localTranslate(by: movementVector)
-            self.lastPanLocation = worldTouchPosition
-          default:
-            break
-          }
-        
-    }
-    
-    /// Rotates An SCNNode Around It's YAxis
-    ///
-    /// - Parameter gesture: UIRotationGestureRecognizer
-    @objc func rotateNode(_ gesture: UIRotationGestureRecognizer){
-
-        //1. Get The Current Rotation From The Gesture
-        let rotation = Float(gesture.rotation)
-
-        //2. If The Gesture State Has Changed Set The Nodes EulerAngles.y
-        if gesture.state == .changed{
-            isRotating = true
-            scanNode.eulerAngles.y = currentAngleY + rotation
-        }
-
-        //3. If The Gesture Has Ended Store The Last Angle Of The Cube
-        if(gesture.state == .ended) {
-            currentAngleY = scanNode.eulerAngles.y
-            isRotating = false
-        }
-    }
-    
-    
     
     func setupControls() {
         
@@ -680,9 +547,9 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         }
         
         if state == .scanning {
-            if frameIndex % 20 == 0 {
+            //if frameIndex % 20 == 0 {
                 renderer.saveTextureFrame(for: frameIndex)
-            }
+            //}
             frameIndex += 1
         }
 
@@ -692,12 +559,12 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         
         let filterAnchors = anchors.filter { $0 is ARMeshAnchor} as! [ARMeshAnchor]
-        filterAnchors.forEach {
+        //filterAnchors.forEach {
             //print("hihi update identifier:\($0.identifier)")
-            let meshGeometry = $0.geometry
-            let vertices = meshGeometry.vertices
+            //let meshGeometry = $0.geometry
+            //let vertices = meshGeometry.vertices
             //print("hihi \($0.identifier) udpate count:\(vertices.count)")
-        }
+        //}
         
         if state == .scanning {
             if frameIndex % 20 == 0 {
