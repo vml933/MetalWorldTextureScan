@@ -1,0 +1,708 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06718765628401CE285DD60EBBD62663 /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9125D74B2E8569D776A586611E3118 /* Mesh.swift */; };
+		06CE41443BE6BA45B38533CAC81560FB /* LineSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E462E9D60AC40A1C30CE2D61E515E8 /* LineSegment.swift */; };
+		1041EF6204ACA9F5794E0AA1D5CA5BDB /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A81FEDFB114EC30901D0A5057B2F10 /* Polygon.swift */; };
+		16563450670E9C9EF3716686BA53FD3F /* Path+Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE1EEAC83015780A123869CB220355D /* Path+Shapes.swift */; };
+		19DF5F8637C278550BF6E23AE66F886E /* BSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A4795C2C9EFD6BE653ED106F06CC1 /* BSP.swift */; };
+		22D00768BDB7C9FC53532AF5FE284C6C /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBCC60A36C4821646579E766FA5ADC2 /* Plane.swift */; };
+		273CB603E24231FE1499E5AFFCAB3751 /* Mesh+CSG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238FBBF10F854C253D367B353C1C6657 /* Mesh+CSG.swift */; };
+		281642F8EDA6E457210F04F96C72B83B /* Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AE9AB1E87A2E39849ACFEC461AC24 /* Rotation.swift */; };
+		2AEE7336E203EE9224B385B21784C48B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		2E457C2F3D554B7DB1DA7556636BF31C /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD814514D0BC208FCC5FD8B5974AC96 /* Quaternion.swift */; };
+		2F624A4F357FF88F04E43FD2430E236A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		32197726704CC369F784C2D152951C22 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F9E95663732794CC1EF19D38EA6C97 /* Line.swift */; };
+		337FC9FAF0EBD31EA0E2D8B31B6361E3 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D740A32472528558AA693132179AD35 /* Vertex.swift */; };
+		4B1E8C6A34E2BFAE4CAC6B33D934B176 /* Pods-MetalWorldTextureScan-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F43C0A62498353A78076EE30E44BBB70 /* Pods-MetalWorldTextureScan-dummy.m */; };
+		5144CC6AE396BEBD8BA3413062960D29 /* Euclid+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803DE370568E3447AEAF1583F086D6CA /* Euclid+UIKit.swift */; };
+		6E827489629FAFF731BEF6AB05B53FF2 /* Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4746A4A16CB8047DFC6E211D67E22928 /* Angle.swift */; };
+		80B243D5D92D0C1A5B777E3D6C42B968 /* Euclid+CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF25A472DD95656D93AF9C65B6E09866 /* Euclid+CoreGraphics.swift */; };
+		8FC822CFA16AEB8D60F6011693C73E2C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F793BACEC0E0EEADDD99A18547F24 /* Path.swift */; };
+		97BBE1C3A9045A91B03696F6DF5C751B /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B21BA10FA855C73FB7933FC5AC980B /* Vector.swift */; };
+		BFB7C9CE7BACEEE06FE2F4056FB4AF83 /* Pods-MetalWorldTextureScan-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FC49E3954398D6E8AE91C359A230667E /* Pods-MetalWorldTextureScan-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE33720465786950A2E9C3B57E678F22 /* Transforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB440A8704D29D19F1197B6F7E0F846A /* Transforms.swift */; };
+		D14BBEA72E172BEF82DEB898CE68C156 /* Euclid+SceneKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD3D23C8EAA9F942D0FE7FFD0767484 /* Euclid+SceneKit.swift */; };
+		D864834D98488E438DC101B55276A963 /* Euclid+AppKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43958CD6D4C6D1A7AA6409DF16A847BC /* Euclid+AppKit.swift */; };
+		D959A0ED1D4AE3F5D9282E02D18E46AD /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9923558F0ED18AC734EF45AD11040BBD /* Color.swift */; };
+		DACB907BD58E82A0ED68FF41DF01017A /* Euclid+CoreText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9235885D0A8E48B28FFC2273C1ED9565 /* Euclid+CoreText.swift */; };
+		DF2399CF23A1FD13212C7FF0FFFD8F6B /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7DA787ADE06EAA01C59F2C1C8EA0F /* Bounds.swift */; };
+		E4C75040A961D4EF344B5DE14CC3D4F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328E941D5A94286550BE8100AC9EEEDF /* Utilities.swift */; };
+		EB8DDB671FE26F5336593AB84612AE3F /* PathPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48432E7D15A7E0BDC1C6318AE7B5F34 /* PathPoint.swift */; };
+		EBAE651CB2D2DA9A4FB7E2382D162CEE /* Euclid.h in Headers */ = {isa = PBXBuildFile; fileRef = 36D0637C83D4FA3D7F7C834FFEE854C4 /* Euclid.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF16632E58A0AAF23D7EB0BD31630D2D /* Euclid-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B6D10EA12B6758D3F7EDDA3557A5E13E /* Euclid-dummy.m */; };
+		F2C9A25DBEBF0AEFA15E26D1A04E809A /* Euclid-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 28A98927643803A573C2D1D749BC7F2B /* Euclid-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F2FF4E4270C9D816D0DFF144FD2D2F53 /* Mesh+Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1EC1519F1022B60C020DB04182A89 /* Mesh+Shapes.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0030288A36386BA9493DCB01B86BA731 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE47191A99A0611690C277CCDA990A80;
+			remoteInfo = Euclid;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06F9E95663732794CC1EF19D38EA6C97 /* Line.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Line.swift; path = Sources/Line.swift; sourceTree = "<group>"; };
+		07F06A61117F8C9A8356CD6BDD24997C /* Pods-MetalWorldTextureScan */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MetalWorldTextureScan"; path = Pods_MetalWorldTextureScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AD814514D0BC208FCC5FD8B5974AC96 /* Quaternion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Quaternion.swift; path = Sources/Quaternion.swift; sourceTree = "<group>"; };
+		232F793BACEC0E0EEADDD99A18547F24 /* Path.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Path.swift; path = Sources/Path.swift; sourceTree = "<group>"; };
+		238FBBF10F854C253D367B353C1C6657 /* Mesh+CSG.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Mesh+CSG.swift"; path = "Sources/Mesh+CSG.swift"; sourceTree = "<group>"; };
+		28A98927643803A573C2D1D749BC7F2B /* Euclid-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Euclid-umbrella.h"; sourceTree = "<group>"; };
+		2FC94C16E10E30AC367FCFA82AC811B1 /* Euclid */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Euclid; path = Euclid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30E462E9D60AC40A1C30CE2D61E515E8 /* LineSegment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineSegment.swift; path = Sources/LineSegment.swift; sourceTree = "<group>"; };
+		328E941D5A94286550BE8100AC9EEEDF /* Utilities.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Sources/Utilities.swift; sourceTree = "<group>"; };
+		36D0637C83D4FA3D7F7C834FFEE854C4 /* Euclid.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Euclid.h; path = Sources/Euclid.h; sourceTree = "<group>"; };
+		43958CD6D4C6D1A7AA6409DF16A847BC /* Euclid+AppKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Euclid+AppKit.swift"; path = "Sources/Euclid+AppKit.swift"; sourceTree = "<group>"; };
+		4746A4A16CB8047DFC6E211D67E22928 /* Angle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Angle.swift; path = Sources/Angle.swift; sourceTree = "<group>"; };
+		4A8AE9AB1E87A2E39849ACFEC461AC24 /* Rotation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rotation.swift; path = Sources/Rotation.swift; sourceTree = "<group>"; };
+		53C1EC1519F1022B60C020DB04182A89 /* Mesh+Shapes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Mesh+Shapes.swift"; path = "Sources/Mesh+Shapes.swift"; sourceTree = "<group>"; };
+		548562488534D3F330776500E9FB526B /* Pods-MetalWorldTextureScan-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MetalWorldTextureScan-Info.plist"; sourceTree = "<group>"; };
+		5AE1EEAC83015780A123869CB220355D /* Path+Shapes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Path+Shapes.swift"; path = "Sources/Path+Shapes.swift"; sourceTree = "<group>"; };
+		5B6A8DCCEA84D5FD78EB649225F05B32 /* Euclid-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Euclid-Info.plist"; sourceTree = "<group>"; };
+		5CFC45DDA6512739A056559E764B6618 /* Pods-MetalWorldTextureScan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MetalWorldTextureScan.debug.xcconfig"; sourceTree = "<group>"; };
+		60EC08459BA9D4E73D69818DF834A422 /* Euclid-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Euclid-prefix.pch"; sourceTree = "<group>"; };
+		610A4795C2C9EFD6BE653ED106F06CC1 /* BSP.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSP.swift; path = Sources/BSP.swift; sourceTree = "<group>"; };
+		63258E534B8115B62EB05AD20FBDCA9A /* Pods-MetalWorldTextureScan-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MetalWorldTextureScan-frameworks.sh"; sourceTree = "<group>"; };
+		70693E5AB1ACF213B0945F3ECD6CEE64 /* Pods-MetalWorldTextureScan.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MetalWorldTextureScan.modulemap"; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		803DE370568E3447AEAF1583F086D6CA /* Euclid+UIKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Euclid+UIKit.swift"; path = "Sources/Euclid+UIKit.swift"; sourceTree = "<group>"; };
+		8D9125D74B2E8569D776A586611E3118 /* Mesh.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = Sources/Mesh.swift; sourceTree = "<group>"; };
+		9235885D0A8E48B28FFC2273C1ED9565 /* Euclid+CoreText.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Euclid+CoreText.swift"; path = "Sources/Euclid+CoreText.swift"; sourceTree = "<group>"; };
+		988BB46CD3F79735DF1DA22123B48CA9 /* Pods-MetalWorldTextureScan-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MetalWorldTextureScan-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9923558F0ED18AC734EF45AD11040BBD /* Color.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Color.swift; path = Sources/Color.swift; sourceTree = "<group>"; };
+		9D740A32472528558AA693132179AD35 /* Vertex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Vertex.swift; path = Sources/Vertex.swift; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A48432E7D15A7E0BDC1C6318AE7B5F34 /* PathPoint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PathPoint.swift; path = Sources/PathPoint.swift; sourceTree = "<group>"; };
+		B35EB97D872C5827E789BF9B93C0B805 /* Pods-MetalWorldTextureScan-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MetalWorldTextureScan-acknowledgements.plist"; sourceTree = "<group>"; };
+		B6D10EA12B6758D3F7EDDA3557A5E13E /* Euclid-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Euclid-dummy.m"; sourceTree = "<group>"; };
+		BBD3D23C8EAA9F942D0FE7FFD0767484 /* Euclid+SceneKit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Euclid+SceneKit.swift"; path = "Sources/Euclid+SceneKit.swift"; sourceTree = "<group>"; };
+		CF76C39160D5F5810D7F8EEC430028D9 /* Pods-MetalWorldTextureScan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MetalWorldTextureScan.release.xcconfig"; sourceTree = "<group>"; };
+		D4B21BA10FA855C73FB7933FC5AC980B /* Vector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Vector.swift; path = Sources/Vector.swift; sourceTree = "<group>"; };
+		D5A81FEDFB114EC30901D0A5057B2F10 /* Polygon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Polygon.swift; path = Sources/Polygon.swift; sourceTree = "<group>"; };
+		DA66E4C3DFA516AD439082FA8CC1C02A /* Euclid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Euclid.debug.xcconfig; sourceTree = "<group>"; };
+		DAC144256E1FBFA7F39A45436C0475F5 /* Euclid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Euclid.release.xcconfig; sourceTree = "<group>"; };
+		DEC7DA787ADE06EAA01C59F2C1C8EA0F /* Bounds.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bounds.swift; path = Sources/Bounds.swift; sourceTree = "<group>"; };
+		DF25A472DD95656D93AF9C65B6E09866 /* Euclid+CoreGraphics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Euclid+CoreGraphics.swift"; path = "Sources/Euclid+CoreGraphics.swift"; sourceTree = "<group>"; };
+		E2DE34770054A3F1D0F3D5C992FBD642 /* Euclid.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Euclid.modulemap; sourceTree = "<group>"; };
+		EB440A8704D29D19F1197B6F7E0F846A /* Transforms.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Transforms.swift; path = Sources/Transforms.swift; sourceTree = "<group>"; };
+		F43C0A62498353A78076EE30E44BBB70 /* Pods-MetalWorldTextureScan-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MetalWorldTextureScan-dummy.m"; sourceTree = "<group>"; };
+		FC49E3954398D6E8AE91C359A230667E /* Pods-MetalWorldTextureScan-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MetalWorldTextureScan-umbrella.h"; sourceTree = "<group>"; };
+		FDBCC60A36C4821646579E766FA5ADC2 /* Plane.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Plane.swift; path = Sources/Plane.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		17881DB766E01C015D45132CCBC171D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AEE7336E203EE9224B385B21784C48B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C173DE6CC8FD86AD108F9D01500FE41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2F624A4F357FF88F04E43FD2430E236A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		095047A30362E9DA16DBE60F3974A023 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FC94C16E10E30AC367FCFA82AC811B1 /* Euclid */,
+				07F06A61117F8C9A8356CD6BDD24997C /* Pods-MetalWorldTextureScan */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E728FC090980D3B5A982FFAADD13635 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D7A0D363891784E7E659A188FEA7DBD9 /* Pods-MetalWorldTextureScan */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		BCAD91215787EAED35D3BC32F65AB381 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DCAFF816C635EEC568AFA729463F81FD /* Euclid */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				BCAD91215787EAED35D3BC32F65AB381 /* Pods */,
+				095047A30362E9DA16DBE60F3974A023 /* Products */,
+				2E728FC090980D3B5A982FFAADD13635 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D65FDB7AB071249E8386DC19C6187674 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E2DE34770054A3F1D0F3D5C992FBD642 /* Euclid.modulemap */,
+				B6D10EA12B6758D3F7EDDA3557A5E13E /* Euclid-dummy.m */,
+				5B6A8DCCEA84D5FD78EB649225F05B32 /* Euclid-Info.plist */,
+				60EC08459BA9D4E73D69818DF834A422 /* Euclid-prefix.pch */,
+				28A98927643803A573C2D1D749BC7F2B /* Euclid-umbrella.h */,
+				DA66E4C3DFA516AD439082FA8CC1C02A /* Euclid.debug.xcconfig */,
+				DAC144256E1FBFA7F39A45436C0475F5 /* Euclid.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Euclid";
+			sourceTree = "<group>";
+		};
+		D7A0D363891784E7E659A188FEA7DBD9 /* Pods-MetalWorldTextureScan */ = {
+			isa = PBXGroup;
+			children = (
+				70693E5AB1ACF213B0945F3ECD6CEE64 /* Pods-MetalWorldTextureScan.modulemap */,
+				988BB46CD3F79735DF1DA22123B48CA9 /* Pods-MetalWorldTextureScan-acknowledgements.markdown */,
+				B35EB97D872C5827E789BF9B93C0B805 /* Pods-MetalWorldTextureScan-acknowledgements.plist */,
+				F43C0A62498353A78076EE30E44BBB70 /* Pods-MetalWorldTextureScan-dummy.m */,
+				63258E534B8115B62EB05AD20FBDCA9A /* Pods-MetalWorldTextureScan-frameworks.sh */,
+				548562488534D3F330776500E9FB526B /* Pods-MetalWorldTextureScan-Info.plist */,
+				FC49E3954398D6E8AE91C359A230667E /* Pods-MetalWorldTextureScan-umbrella.h */,
+				5CFC45DDA6512739A056559E764B6618 /* Pods-MetalWorldTextureScan.debug.xcconfig */,
+				CF76C39160D5F5810D7F8EEC430028D9 /* Pods-MetalWorldTextureScan.release.xcconfig */,
+			);
+			name = "Pods-MetalWorldTextureScan";
+			path = "Target Support Files/Pods-MetalWorldTextureScan";
+			sourceTree = "<group>";
+		};
+		DCAFF816C635EEC568AFA729463F81FD /* Euclid */ = {
+			isa = PBXGroup;
+			children = (
+				4746A4A16CB8047DFC6E211D67E22928 /* Angle.swift */,
+				DEC7DA787ADE06EAA01C59F2C1C8EA0F /* Bounds.swift */,
+				610A4795C2C9EFD6BE653ED106F06CC1 /* BSP.swift */,
+				9923558F0ED18AC734EF45AD11040BBD /* Color.swift */,
+				36D0637C83D4FA3D7F7C834FFEE854C4 /* Euclid.h */,
+				43958CD6D4C6D1A7AA6409DF16A847BC /* Euclid+AppKit.swift */,
+				DF25A472DD95656D93AF9C65B6E09866 /* Euclid+CoreGraphics.swift */,
+				9235885D0A8E48B28FFC2273C1ED9565 /* Euclid+CoreText.swift */,
+				BBD3D23C8EAA9F942D0FE7FFD0767484 /* Euclid+SceneKit.swift */,
+				803DE370568E3447AEAF1583F086D6CA /* Euclid+UIKit.swift */,
+				06F9E95663732794CC1EF19D38EA6C97 /* Line.swift */,
+				30E462E9D60AC40A1C30CE2D61E515E8 /* LineSegment.swift */,
+				8D9125D74B2E8569D776A586611E3118 /* Mesh.swift */,
+				238FBBF10F854C253D367B353C1C6657 /* Mesh+CSG.swift */,
+				53C1EC1519F1022B60C020DB04182A89 /* Mesh+Shapes.swift */,
+				232F793BACEC0E0EEADDD99A18547F24 /* Path.swift */,
+				5AE1EEAC83015780A123869CB220355D /* Path+Shapes.swift */,
+				A48432E7D15A7E0BDC1C6318AE7B5F34 /* PathPoint.swift */,
+				FDBCC60A36C4821646579E766FA5ADC2 /* Plane.swift */,
+				D5A81FEDFB114EC30901D0A5057B2F10 /* Polygon.swift */,
+				1AD814514D0BC208FCC5FD8B5974AC96 /* Quaternion.swift */,
+				4A8AE9AB1E87A2E39849ACFEC461AC24 /* Rotation.swift */,
+				EB440A8704D29D19F1197B6F7E0F846A /* Transforms.swift */,
+				328E941D5A94286550BE8100AC9EEEDF /* Utilities.swift */,
+				D4B21BA10FA855C73FB7933FC5AC980B /* Vector.swift */,
+				9D740A32472528558AA693132179AD35 /* Vertex.swift */,
+				D65FDB7AB071249E8386DC19C6187674 /* Support Files */,
+			);
+			name = Euclid;
+			path = Euclid;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		29D34083C9A6D64A62A8C023D4EB2AD5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBAE651CB2D2DA9A4FB7E2382D162CEE /* Euclid.h in Headers */,
+				F2C9A25DBEBF0AEFA15E26D1A04E809A /* Euclid-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99A772FE0900B0983322AD9A68ECD0C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFB7C9CE7BACEEE06FE2F4056FB4AF83 /* Pods-MetalWorldTextureScan-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AE47191A99A0611690C277CCDA990A80 /* Euclid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B2140568B1074E0DF898B29DE65607E8 /* Build configuration list for PBXNativeTarget "Euclid" */;
+			buildPhases = (
+				29D34083C9A6D64A62A8C023D4EB2AD5 /* Headers */,
+				E3E29DEF37DB9B563F22EFD2DB4074C4 /* Sources */,
+				17881DB766E01C015D45132CCBC171D4 /* Frameworks */,
+				7834FDD7361B99FB7529B4019904DD57 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Euclid;
+			productName = Euclid;
+			productReference = 2FC94C16E10E30AC367FCFA82AC811B1 /* Euclid */;
+			productType = "com.apple.product-type.framework";
+		};
+		E61777F621E24E42643A0ED9BFD9F963 /* Pods-MetalWorldTextureScan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6BFF43CA885A1156A8BDA84146C2116 /* Build configuration list for PBXNativeTarget "Pods-MetalWorldTextureScan" */;
+			buildPhases = (
+				99A772FE0900B0983322AD9A68ECD0C1 /* Headers */,
+				DDD5FD6A64C8B8853FEE975A6681A742 /* Sources */,
+				2C173DE6CC8FD86AD108F9D01500FE41 /* Frameworks */,
+				84CC4457CA13415751F7E390B6F024B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3F7130159D43194D8A73EEBD8CCA94AC /* PBXTargetDependency */,
+			);
+			name = "Pods-MetalWorldTextureScan";
+			productName = Pods_MetalWorldTextureScan;
+			productReference = 07F06A61117F8C9A8356CD6BDD24997C /* Pods-MetalWorldTextureScan */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 095047A30362E9DA16DBE60F3974A023 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE47191A99A0611690C277CCDA990A80 /* Euclid */,
+				E61777F621E24E42643A0ED9BFD9F963 /* Pods-MetalWorldTextureScan */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7834FDD7361B99FB7529B4019904DD57 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84CC4457CA13415751F7E390B6F024B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDD5FD6A64C8B8853FEE975A6681A742 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B1E8C6A34E2BFAE4CAC6B33D934B176 /* Pods-MetalWorldTextureScan-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3E29DEF37DB9B563F22EFD2DB4074C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E827489629FAFF731BEF6AB05B53FF2 /* Angle.swift in Sources */,
+				DF2399CF23A1FD13212C7FF0FFFD8F6B /* Bounds.swift in Sources */,
+				19DF5F8637C278550BF6E23AE66F886E /* BSP.swift in Sources */,
+				D959A0ED1D4AE3F5D9282E02D18E46AD /* Color.swift in Sources */,
+				D864834D98488E438DC101B55276A963 /* Euclid+AppKit.swift in Sources */,
+				80B243D5D92D0C1A5B777E3D6C42B968 /* Euclid+CoreGraphics.swift in Sources */,
+				DACB907BD58E82A0ED68FF41DF01017A /* Euclid+CoreText.swift in Sources */,
+				D14BBEA72E172BEF82DEB898CE68C156 /* Euclid+SceneKit.swift in Sources */,
+				5144CC6AE396BEBD8BA3413062960D29 /* Euclid+UIKit.swift in Sources */,
+				EF16632E58A0AAF23D7EB0BD31630D2D /* Euclid-dummy.m in Sources */,
+				32197726704CC369F784C2D152951C22 /* Line.swift in Sources */,
+				06CE41443BE6BA45B38533CAC81560FB /* LineSegment.swift in Sources */,
+				06718765628401CE285DD60EBBD62663 /* Mesh.swift in Sources */,
+				273CB603E24231FE1499E5AFFCAB3751 /* Mesh+CSG.swift in Sources */,
+				F2FF4E4270C9D816D0DFF144FD2D2F53 /* Mesh+Shapes.swift in Sources */,
+				8FC822CFA16AEB8D60F6011693C73E2C /* Path.swift in Sources */,
+				16563450670E9C9EF3716686BA53FD3F /* Path+Shapes.swift in Sources */,
+				EB8DDB671FE26F5336593AB84612AE3F /* PathPoint.swift in Sources */,
+				22D00768BDB7C9FC53532AF5FE284C6C /* Plane.swift in Sources */,
+				1041EF6204ACA9F5794E0AA1D5CA5BDB /* Polygon.swift in Sources */,
+				2E457C2F3D554B7DB1DA7556636BF31C /* Quaternion.swift in Sources */,
+				281642F8EDA6E457210F04F96C72B83B /* Rotation.swift in Sources */,
+				CE33720465786950A2E9C3B57E678F22 /* Transforms.swift in Sources */,
+				E4C75040A961D4EF344B5DE14CC3D4F6 /* Utilities.swift in Sources */,
+				97BBE1C3A9045A91B03696F6DF5C751B /* Vector.swift in Sources */,
+				337FC9FAF0EBD31EA0E2D8B31B6361E3 /* Vertex.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3F7130159D43194D8A73EEBD8CCA94AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Euclid;
+			target = AE47191A99A0611690C277CCDA990A80 /* Euclid */;
+			targetProxy = 0030288A36386BA9493DCB01B86BA731 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		15D3659F1CC1CC0E43E0CC4D454CFBDF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5CFC45DDA6512739A056559E764B6618 /* Pods-MetalWorldTextureScan.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		19215F61DF61CEB49312903760D5B6ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA66E4C3DFA516AD439082FA8CC1C02A /* Euclid.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Euclid/Euclid-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Euclid/Euclid-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Euclid/Euclid.modulemap";
+				PRODUCT_MODULE_NAME = Euclid;
+				PRODUCT_NAME = Euclid;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		85D36392BA32CD41E1C04695341328E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAC144256E1FBFA7F39A45436C0475F5 /* Euclid.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Euclid/Euclid-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Euclid/Euclid-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Euclid/Euclid.modulemap";
+				PRODUCT_MODULE_NAME = Euclid;
+				PRODUCT_NAME = Euclid;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		B72FB6465BDB060B40A84648EC1C6AE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF76C39160D5F5810D7F8EEC430028D9 /* Pods-MetalWorldTextureScan.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */,
+				593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B2140568B1074E0DF898B29DE65607E8 /* Build configuration list for PBXNativeTarget "Euclid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19215F61DF61CEB49312903760D5B6ED /* Debug */,
+				85D36392BA32CD41E1C04695341328E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6BFF43CA885A1156A8BDA84146C2116 /* Build configuration list for PBXNativeTarget "Pods-MetalWorldTextureScan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15D3659F1CC1CC0E43E0CC4D454CFBDF /* Debug */,
+				B72FB6465BDB060B40A84648EC1C6AE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

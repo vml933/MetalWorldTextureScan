@@ -13,6 +13,7 @@
 		83C21308250EE8EA007411C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83C21306250EE8EA007411C2 /* Main.storyboard */; };
 		83C2130A250EE8EC007411C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83C21309250EE8EC007411C2 /* Assets.xcassets */; };
 		83C2130D250EE8EC007411C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83C2130B250EE8EC007411C2 /* LaunchScreen.storyboard */; };
+		AF2BD483885A5EBD709CDB75 /* Pods_MetalWorldTextureScan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7AD6475D7246D51A0E16066 /* Pods_MetalWorldTextureScan.framework */; };
 		B0FCE25927C74B6500942743 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCE25827C74B6500942743 /* ScanViewController.swift */; };
 		B0FCE25B27C74BF700942743 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FCE25A27C74BF700942743 /* Renderer.swift */; };
 /* End PBXBuildFile section */
@@ -26,8 +27,11 @@
 		83C21309250EE8EC007411C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83C2130C250EE8EC007411C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83C2130E250EE8EC007411C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B5922351DDF109C6E51C280 /* Pods-MetalWorldTextureScan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetalWorldTextureScan.debug.xcconfig"; path = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan.debug.xcconfig"; sourceTree = "<group>"; };
 		B0FCE25827C74B6500942743 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		B0FCE25A27C74BF700942743 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		B7AD6475D7246D51A0E16066 /* Pods_MetalWorldTextureScan.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MetalWorldTextureScan.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA39D9BCFE2919937BC367B5 /* Pods-MetalWorldTextureScan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MetalWorldTextureScan.release.xcconfig"; path = "Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF2BD483885A5EBD709CDB75 /* Pods_MetalWorldTextureScan.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D760F85B78A658A1706D6A4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9B5922351DDF109C6E51C280 /* Pods-MetalWorldTextureScan.debug.xcconfig */,
+				FA39D9BCFE2919937BC367B5 /* Pods-MetalWorldTextureScan.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		83C212F1250EE8E9007411C2 = {
 			isa = PBXGroup;
 			children = (
 				83C212FC250EE8E9007411C2 /* MetalWorldTextureScan */,
 				83C212FB250EE8E9007411C2 /* Products */,
+				3D760F85B78A658A1706D6A4 /* Pods */,
+				E701779FA085C7073B46BBC6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +91,14 @@
 			path = /Users/mark/Documents/XCodeProject/MetalWorldTextureScan/MetalWorldTextureScan;
 			sourceTree = "<absolute>";
 		};
+		E701779FA085C7073B46BBC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B7AD6475D7246D51A0E16066 /* Pods_MetalWorldTextureScan.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -81,17 +106,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83C21312250EE8EC007411C2 /* Build configuration list for PBXNativeTarget "MetalWorldTextureScan" */;
 			buildPhases = (
+				9E182BB88D8D4B88254FB386 /* [CP] Check Pods Manifest.lock */,
 				83C212F6250EE8E9007411C2 /* Sources */,
 				83C212F7250EE8E9007411C2 /* Frameworks */,
 				83C212F8250EE8E9007411C2 /* Resources */,
+				34A0E2232C26657D68E2246A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MetalWorldTextureScan;
-			packageProductDependencies = (
-			);
 			productName = MetalWorldMesh;
 			productReference = 83C212FA250EE8E9007411C2 /* MetalWorldTextureScan.app */;
 			productType = "com.apple.product-type.application";
@@ -120,8 +145,6 @@
 				Base,
 			);
 			mainGroup = 83C212F1250EE8E9007411C2;
-			packageReferences = (
-			);
 			productRefGroup = 83C212FB250EE8E9007411C2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -143,6 +166,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34A0E2232C26657D68E2246A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MetalWorldTextureScan/Pods-MetalWorldTextureScan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E182BB88D8D4B88254FB386 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MetalWorldTextureScan-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		83C212F6250EE8E9007411C2 /* Sources */ = {
@@ -297,6 +362,7 @@
 		};
 		83C21313250EE8EC007411C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B5922351DDF109C6E51C280 /* Pods-MetalWorldTextureScan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -316,6 +382,7 @@
 		};
 		83C21314250EE8EC007411C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA39D9BCFE2919937BC367B5 /* Pods-MetalWorldTextureScan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -222,7 +222,6 @@ class Renderer {
 //        delegate.didSaveFrame(renderer: self)
         
         let uiImage = getTextureImage(frame: frame)
-        
         let textFrame = TextureFrame2(key: dString,
                                       dist: dist,
                                       pos: cam2BoxLocal,
@@ -379,8 +378,9 @@ class Renderer {
     
     
     func placeVirtualBox(pos: SCNVector3) {
-        let min = SCNVector3(pos.x - 0.5, pos.y - 0.5, pos.z - 1.0)
-        let max = SCNVector3(pos.x + 0.5, pos.y + 0.5, pos.z)
+        let edge: Float = 0.5
+        let min = SCNVector3(pos.x - edge, pos.y - edge, pos.z - 1.0)
+        let max = SCNVector3(pos.x + edge, pos.y + edge, pos.z)
         bBox = BoundingBox((min: min, max: max))
         bBoxOrigin = pos
     }

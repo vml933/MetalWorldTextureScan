@@ -148,15 +148,14 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         
         renderer.state = state
     }
-    
-    //TODO: auto save texture every 5 frame
+        
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // save a texture frame by tapping
         // ideally this would be done with a timer, or by moving a certain distance
-        if state == .scanning {
-            renderer.saveTextureFrame()
-        }
+        //if state == .scanning {
+        //    renderer.saveTextureFrame()
+        //}
     }
     
     
@@ -270,6 +269,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                 mat.diffuse.contents = texture
                 mat.isDoubleSided = false
                 geom.materials = [mat]
+                
                 let meshNode = SCNNode(geometry: geom)
                 
                 DispatchQueue.main.async {
@@ -280,8 +280,9 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
     }
     
     func makeTexturedMesh2() {
+        print("hihi count:\(renderer.textureCloud2.count)")
         
-        
+        //let frame = renderer.textureCloud2.first!
         for frame in renderer.textureCloud2{
             
             //let worldMeshes = renderer.worldMeshes
@@ -295,7 +296,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                 let normals: ARGeometrySource = mesh.normals
                 let faces: ARGeometryElement = mesh.submesh
                 
-                var texture: UIImage!
+                var texture: UIImage?
                 
                 // a face is just a list of three indices, each representing a vertex
                 for f in 0..<faces.count {
@@ -342,7 +343,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                         let tCoord = getTextureCoord(cam: tFrame.cam, vert: vert, aTrans: mesh.transform)
                         tCoords.append(tCoord)
                         //texture = textureImgs[textureCloud.count - 1]
-                        texture = frame.texture!
+                        texture = frame.texture
                         
                         // visualize the normals if you want
                         if mesh.inBox[fv] == 1 {
@@ -357,15 +358,23 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                     // make a single triangle mesh out each face
                     let vertsSource = SCNGeometrySource(vertices: fVerts)
                     let normsSource = SCNGeometrySource(normals: fNorms)
-                    let facesSource = SCNGeometryElement(indices: [UInt32(0), UInt32(1), UInt32(2)], primitiveType: .triangles)
                     let textrSource = SCNGeometrySource(textureCoordinates: tCoords)
+                    let facesSource = SCNGeometryElement(indices: [UInt32(0), UInt32(1), UInt32(2)], primitiveType: .triangles)
                     let geom = SCNGeometry(sources: [vertsSource, normsSource, textrSource], elements: [facesSource])
                     
                     // texture it with a saved camera frame
-                    let mat = SCNMaterial()
-                    mat.diffuse.contents = texture
-                    mat.isDoubleSided = false
-                    geom.materials = [mat]
+                    //if let texture = texture {
+                        
+                        let mat = SCNMaterial()
+                        mat.diffuse.contents = texture
+                        //develop
+                        mat.diffuse.wrapT = .clampToBorder
+                        mat.diffuse.wrapS = .clampToBorder
+                        //mat.transparencyMode = .dualLayer
+                        
+                        mat.isDoubleSided = false
+                        geom.materials = [mat]
+                    //}
                     let meshNode = SCNNode(geometry: geom)
                     
                     DispatchQueue.main.async {
@@ -374,7 +383,6 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
                 }
             }
         }
-        
         
     }
     
@@ -420,6 +428,7 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         mat.isDoubleSided = false
         geom.materials = [mat]
         let meshNode = SCNNode(geometry: geom)
+        
         return meshNode
     }
     
@@ -524,6 +533,11 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         }
     }
     
+    //Store The Rotation Of The CurrentNode
+    var currentAngleY: Float = 0.0
+
+    //Not Really Necessary But Can Use If You Like
+    var isRotating = false
     
     
     func setupScanView() {
@@ -534,15 +548,16 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         arBounds = arView.bounds
         
         sConfig = ARWorldTrackingConfiguration()
-        sConfig.sceneReconstruction = .mesh
-        sConfig.planeDetection = [.horizontal, .vertical]
-        arView.session.run(sConfig, options: [])
+        //sConfig.sceneReconstruction = .mesh
+        //sConfig.planeDetection = [.horizontal, .vertical]
+//        sConfig.planeDetection = [.horizontal]
+        //arView.session.run(sConfig, options: [])
         view.addSubview(arView)
         
         view.bringSubviewToFront(scanButton)
         
         scanNode = SCNNode()
-        scanNode.position = SCNVector3(0,0,0)
+        scanNode.position = SCNVector3(0,0.15, -0.6)
         arView.scene.rootNode.addChildNode(scanNode)
         
         for i in 0..<renderer.textureCloud.count {
@@ -555,6 +570,66 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         //office
         //makeTexturedMesh()
         makeTexturedMesh2()
+        
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(moveNode(_:)))
+//         self.arView.addGestureRecognizer(panGesture)
+        
+        let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateNode(_:)))
+        self.arView.addGestureRecognizer(rotateGesture)
+    }
+    
+    var panStartZ: CGFloat? = 0
+    var lastPanLocation: SCNVector3? = SCNVector3.init(0, 0, 0)
+    
+    /// Rotates An Object On It's YAxis
+    ///
+    /// - Parameter gesture: UIPanGestureRecognizer
+    @objc func moveNode(_ panGesture: UIPanGestureRecognizer) {
+        
+        //guard let view = arView as? ARSCNView else { return }
+        
+          let location = panGesture.location(in: self.arView)
+          switch panGesture.state {
+          case .began:
+            // existing logic from previous approach. Keep this.
+            guard let hitNodeResult = arView.hitTest(location, options: nil).first else { return }
+            panStartZ = CGFloat(arView.projectPoint(lastPanLocation!).z)
+            // lastPanLocation is new
+            lastPanLocation = hitNodeResult.worldCoordinates
+          case .changed:
+            // This entire case has been replaced
+            let worldTouchPosition = arView.unprojectPoint(SCNVector3(location.x, location.y, panStartZ!))
+            let movementVector = SCNVector3(
+              worldTouchPosition.x - lastPanLocation!.x,
+              worldTouchPosition.y - lastPanLocation!.y,
+              worldTouchPosition.z - lastPanLocation!.z)
+              scanNode.localTranslate(by: movementVector)
+            self.lastPanLocation = worldTouchPosition
+          default:
+            break
+          }
+        
+    }
+    
+    /// Rotates An SCNNode Around It's YAxis
+    ///
+    /// - Parameter gesture: UIRotationGestureRecognizer
+    @objc func rotateNode(_ gesture: UIRotationGestureRecognizer){
+
+        //1. Get The Current Rotation From The Gesture
+        let rotation = Float(gesture.rotation)
+
+        //2. If The Gesture State Has Changed Set The Nodes EulerAngles.y
+        if gesture.state == .changed{
+            isRotating = true
+            scanNode.eulerAngles.y = currentAngleY + rotation
+        }
+
+        //3. If The Gesture Has Ended Store The Last Angle Of The Cube
+        if(gesture.state == .ended) {
+            currentAngleY = scanNode.eulerAngles.y
+            isRotating = false
+        }
     }
     
     
@@ -595,6 +670,45 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
         hapty = UIImpactFeedbackGenerator(style: .medium)
     }
     
+    // MARK: - ARSessionDelegate
+    
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        
+        let filterAnchors = anchors.filter { $0 is ARMeshAnchor} as! [ARMeshAnchor]
+        filterAnchors.forEach { anchor in
+            //print("hihi new identifier:\($0.identifier)")
+        }
+        
+        if state == .scanning {
+            if frameIndex % 20 == 0 {
+                renderer.saveTextureFrame(for: frameIndex)
+            }
+            frameIndex += 1
+        }
+
+         
+    }
+    
+    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+        
+        let filterAnchors = anchors.filter { $0 is ARMeshAnchor} as! [ARMeshAnchor]
+        filterAnchors.forEach {
+            //print("hihi update identifier:\($0.identifier)")
+            let meshGeometry = $0.geometry
+            let vertices = meshGeometry.vertices
+            //print("hihi \($0.identifier) udpate count:\(vertices.count)")
+        }
+        
+        if state == .scanning {
+            if frameIndex % 20 == 0 {
+                renderer.saveTextureFrame(for: frameIndex)
+            }
+            frameIndex += 1
+        }
+         
+    }
+
+    
     // MARK: - MTKViewDelegate
     
     
@@ -607,13 +721,14 @@ class ScanViewController: UIViewController, MTKViewDelegate, ARSessionDelegate, 
     func draw(in view: MTKView) {
         renderer.update()
         
+        //todo save textureFrame by move offset
         //save textureFrame every 30 frame
-        if state == .scanning {
-            if frameIndex % 30 == 0 {
-                renderer.saveTextureFrame(for: frameIndex)
-            }
-            frameIndex += 1
-        }
+//        if state == .scanning {
+//            if frameIndex % 30 == 0 {
+//                renderer.saveTextureFrame(for: frameIndex)
+//            }
+//            frameIndex += 1
+//        }
         
     }
     
